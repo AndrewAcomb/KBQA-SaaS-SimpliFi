@@ -1,0 +1,47 @@
+# WebQuestions Data
+name: 'WebQuestions'
+data_dir: '../data/WebQ/'
+train_data: 'train_ent_vec.json'
+valid_data: 'valid_ent_vec.json'
+test_data: 'test_ent_vec.json'
+
+# Full vocab
+vocab_size: 100797
+num_ent_types: 1712
+num_relations: 4996
+pre_word2vec: '../data/WebQ/glove_pretrained_300d_w2v.npy'
+
+
+# Output
+model_file: '../runs/WebQ/entnet.md'
+
+
+# Model
+query_size: 32
+max_seed_ent_name_size: null
+max_seed_type_name_size: null
+max_seed_rel_name_size: null
+max_seed_rel_size: null
+
+vocab_embed_size: 300
+hidden_size: 128
+o_embed_size: 128
+word_emb_dropout: 0.3
+que_enc_dropout: 0.3
+ent_enc_dropout: 0.2
+attention: 'simple'
+seq_enc_type: 'cnn'
+num_ent_hops: 1
+
+# Training
+learning_rate: 0.001
+batch_size: 32
+num_epochs: 100
+valid_patience: 10
+
+# Testing
+test_batch_size: 1
+
+# Device
+no_cuda: True
+gpu: 0

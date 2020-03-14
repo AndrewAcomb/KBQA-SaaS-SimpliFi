@@ -1,0 +1,9 @@
+__pycache__
+question-answering/bamnet.md
+question-anwering/glove.840B.300d.w2v
+question-answering/data/*
+error_analysis.txt
+*.DS_Store
+*.w2v
+*.md
+*.npy

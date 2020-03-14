@@ -1,0 +1,45 @@
+<div class="header">
+    
+    <meta charset="UTF-8">
+    <title>KBQA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <h1>SimpliFi</h1>
+
+</div>
+
+<body>
+
+<div class="queryForm">
+	<h2>Ask about a publicly traded company.</h2>
+
+     <!-- Input For Receiving Query to BAMnet model -->
+  <form action="{{ url_for('answer')}}"method="post">
+      <input type="text" name="question" placeholder="Question" required="required" />
+
+      <button type="submit" class="btn btn-primary btn-block btn-large">Go</button>
+  </form>
+
+</div>
+
+  <br>
+
+  <div class="BAMnetResponse">
+  {{ question }}
+  </div>
+
+  <br> 
+  <br>
+
+  <div class="BAMnetResponse">
+  {{ prediction }}
+  </div>
+
+  <br>
+  <br>
+
+  <div class="BAMnetResponse">
+  {{ matching_score }}
+  </div>
+
+</body>

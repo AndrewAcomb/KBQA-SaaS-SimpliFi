@@ -1,0 +1,6 @@
+setup.py
+kbqa_saas_flask.egg-info/PKG-INFO
+kbqa_saas_flask.egg-info/SOURCES.txt
+kbqa_saas_flask.egg-info/dependency_links.txt
+kbqa_saas_flask.egg-info/requires.txt
+kbqa_saas_flask.egg-info/top_level.txt

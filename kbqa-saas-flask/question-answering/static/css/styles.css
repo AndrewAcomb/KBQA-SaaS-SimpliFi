@@ -1,0 +1,33 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body { 
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	background: #092756;
+	color: #fff;
+	font-size: 18px;
+}
+
+form {
+	width: 100%;
+	font-size: 40px;
+}
+
+form input {
+	width: 60%;
+	height: 10%;
+	
+	font-size: 40px;
+}
+
+form button {
+	width: 10%;
+	height: 10%;
+
+	font-size: 40px;
+}
+
+
+.BAMnetResponse {
+	font-size: 40px;
+}
