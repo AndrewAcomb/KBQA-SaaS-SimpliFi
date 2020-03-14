@@ -24,7 +24,8 @@ Both SimpliFi and the KBQA SaaS use a Bidirectional Attentive Memory Network to 
 #### Options for training the model for use in Simplifi.
 
 1. Train the model through the KBQA SaaS React frontend.
-2. Download the model from Google Docs.
+
+2. Download the pretrained model from Google Docs.
 
 
 ## KBQA SaaS
@@ -76,16 +77,26 @@ Dockerfile: [dockerfile link]
 #### Step 1. Clone and navigate to this repository
 
 ```
-git clone https://github.com/changdaniel/kbqa-saas-flask.git
-cd kbqa-saas-flask
+https://github.com/AndrewAcomb/KBQA-SaaS-SimpliFi.git
+cd KBQA-SaaS-SimpliFi
 ```
 
-#### Step 2. Build and run the SimpliFi Docker image
+#### Step 2. Download processed data and pretrained model
 
 ```
-docker build -t [dockerimage] .
-docker run [dockerimage]
+cd ks-flask/question-answering && { curl -O http://andrewacomb.me/data.zip ; curl -O http://andrewacomb.me/bamnet.md ; unzip data.zip ; rm data.zip ; cd -; }
 ```
+
+
+#### Step 3. Build and run the SimpliFi Docker image
+
+```
+docker build -t simplifi .
+docker run simplifi
+```
+
+#### Step 4. Open your browser and go to http://localhost:5000/
+
 
 
 
