@@ -81,7 +81,7 @@ docker run -d -p 5000:5000 kbqa
 
 Starter Data: KBQA-SaaS-SimpliFi/kbqa-saas-flask/data_upload/new_result_spy.json
 
-#### Step 5. Enjoy the vibes
+#### Step 5. Wait for model to train
 
 Reformatting the Word2Vec embeddings to the data takes about 7 minutes.
 
@@ -134,6 +134,7 @@ docker run -d -p 5000:5000 simplifi
 
 #### Step 4. Open your browser and go to http://localhost:5000/
 
+Type your query into the search bar. Make sure to include the stock ticker of a public company such as $FB (Facebook) or $XOM (Exxon-Mobil).
 
 
 
