@@ -70,9 +70,9 @@ Preprocessed Data: http://andrewacomb.me/data.zip -->
 
 ### How to run (Docker)
 
-Docker Image: [docker image link]
+Docker Image: [View](https://hub.docker.com/r/aca7964/simplifi)
 
-Dockerfile: [dockerfile link]
+Dockerfile: [View](https://github.com/AndrewAcomb/KBQA-SaaS-SimpliFi/blob/master/Dockerfile)
 
 #### Step 1. Clone and navigate to this repository
 
@@ -80,7 +80,7 @@ Dockerfile: [dockerfile link]
 https://github.com/AndrewAcomb/KBQA-SaaS-SimpliFi.git
 cd KBQA-SaaS-SimpliFi
 ```
-
+docker tag simplifi registry-host:5000/myadmin/simplifi
 #### Step 2. Download processed data and pretrained model
 
 ```
