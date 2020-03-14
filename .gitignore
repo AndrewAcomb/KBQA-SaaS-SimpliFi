@@ -1,0 +1,5 @@
+__pycache__
+*error_analysis.txt
+*.DS_Store
+*.md
+!README.md
