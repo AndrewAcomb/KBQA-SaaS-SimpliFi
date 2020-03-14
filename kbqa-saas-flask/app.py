@@ -54,19 +54,19 @@ def execute(cmd):
 
 def train_model():
 
-    for message in execute(['python3', './question-answering/run_all.py', 'update_config']):
+    for message in execute(['python3', 'run_all.py', 'update_config']):
         print(message)
         write_to_pusher(message)
 
-    for message in execute(['python3', './question-answering/run_all.py', 'generate_embeddings']):
+    for message in execute(['python3', 'run_all.py', 'generate_embeddings']):
         print(message)
         write_to_pusher(message)
 
-    for message in execute(['python3', './question-answering/run_all.py', 'build_training_data']):
+    for message in execute(['python3', 'run_all.py', 'build_training_data']):
         print(message)
         write_to_pusher(message)
 
-    for message in execute(['python3', './question-answering/run_all.py', 'train_model']):
+    for message in execute(['python3', 'run_all.py', 'train_model']):
         print(message)
         write_to_pusher(message)
 
@@ -113,8 +113,3 @@ def query():
     question = request.args.get('question').replace("_", " ")
 
     return answer_question(question)
-
-
-
-
-

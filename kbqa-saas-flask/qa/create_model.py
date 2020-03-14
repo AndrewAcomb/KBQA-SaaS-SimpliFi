@@ -1,22 +1,19 @@
-import qa.question_answering as qa
-from qa.core.utils.generic_utils import dump_embeddings
-from qa.core.utils.utils import *
-from qa.core.build_data.build_data import build_vocab, build_data, build_seed_ent_data
-from qa.core.build_data import utils as build_utils
-from qa.core.bamnet.bamnet import BAMnetAgent
+from .core.utils.generic_utils import dump_embeddings
+from .core.utils.utils import *
+from .core.build_data.build_data import build_vocab, build_data, build_seed_ent_data
+from .core.build_data import utils as build_utils
+from .core.bamnet.bamnet import BAMnetAgent
 import yaml
 import os
 import timeit
 import numpy as np
 
 
-def update_config(qa_root='qa/', new_data_dir=None, new_model=None):
+def update_config(config_path='./config/bamnet_saas.yml', new_data_dir=None, new_model=None):
     """
     Description: Update the config template file with the desired data directory
     Parameters: (String, String) Relative paths to data directory and config file
     """
-
-    config_path = qa_root + 'config/bamnet_webq.yml'
 
     with open(config_path, "r") as setting:
         new_config = yaml.load(setting)
@@ -43,20 +40,16 @@ def update_config(qa_root='qa/', new_data_dir=None, new_model=None):
 
 
 
-def generate_embeddings(qa_root='qa/'):
+def generate_embeddings(config_path='./config/bamnet_saas.yml', glove = 'glove.840B.300d.w2v'):
     """
     Description: Generate GLOVE word embedding vectors for the vocabulary
     Parameters: (String, String) Relative paths to config file and glove model
     Output: (.npy File) Creates file with word embedding vectors for BAMnet training
     """
 
-    config_path = qa_root + 'config/bamnet_webq.yml'
-    glove = qa_root + 'glove.840B.300d.w2v'
-
 
     with open(config_path, "r") as setting:
         config = yaml.load(setting)
-    
 
     data_dir = config['data_dir']
     emb_size = config['vocab_embed_size']
@@ -68,12 +61,13 @@ def generate_embeddings(qa_root='qa/'):
     dump_embeddings(vocab_dict, glove, out_path, emb_size=emb_size, binary=False)
 
 
-def build_training_data(qa_root='qa/'):
+def build_training_data(config_path='./config/bamnet_saas.yml'):
     """
     Description: Create train/valid/test questions into vectors for BAMnet training
     Parameters: (String) Relative path to config file
     Output: (3 .json Files) train_vec.json, valid_vec.json, test_vec.json in /data
     """
+
 
     with open(config_path, "r") as setting:
         config = yaml.load(setting)
@@ -103,7 +97,7 @@ def build_training_data(qa_root='qa/'):
 
 
 
-def train_model(qa_root='qa/'):
+def train_model(config_path='./config/bamnet_saas.yml'):
     """
     Description: Train a BAMnet model with knowledge base and questions in /data
     Parameters: (String) Relative path to config file

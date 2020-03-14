@@ -1,15 +1,20 @@
+import sys
 import numpy as np
 from flask import Flask, request, render_template
 import qa.question_answering as qans
-from qa.create_model import update_config
-
+#from qa.create_model import update_config
 # Default url is http://localhost:5000
+
+
 
 app = Flask(__name__)
 
+# If docker, use 0.0.0.0
+host = ('0.0.0.0' if len(sys.argv) > 1 else '127.0.0.1')
+
+
 # Load in data, model
 
-#update_config('/config/bamnet_webq.yml', '/data', './bamnet.md')
 data = qans.load_data()
 model = qans.load_model(data)
 
@@ -45,4 +50,4 @@ def answer():
 
 
 if __name__ == "__main__":
-    app.run(debug = True, host='0.0.0.0')
+    app.run(debug = True, host=host)

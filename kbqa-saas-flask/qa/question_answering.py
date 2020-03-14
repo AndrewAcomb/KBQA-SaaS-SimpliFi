@@ -2,24 +2,27 @@ import sys
 import os
 import string
 import yaml
-from qa.core.bamnet.bamnet import BAMnetAgent
-from qa.core.utils.utils import get_config, load_json, load_ndjson
-from qa.core.build_data.build_data import build_vocab, build_data, build_seed_ent_data, build_ans_cands
-from qa.core.build_data.utils import vectorize_data
+from .core.bamnet.bamnet import BAMnetAgent
+from .core.utils.utils import get_config, load_json, load_ndjson
+from .core.build_data.build_data import build_vocab, build_data, build_seed_ent_data, build_ans_cands
+from .core.build_data.utils import vectorize_data
 
 
 # --------- Load Knowledge Base, Existing Model, ID Mappings ------------
 
-def load_data(qa_root='qa/'):
+def load_data(cfg='./config/bamnet_saas.yml'):
     """
     Description: Load config settings, knowledge base, and ID mappings into memory
     Parameters: (String) Path to configuration file
     Output: (Dict) Dictionary containing token mappings
     """
 
-    cfg =qa_root + 'config/bamnet_webq.yml'
     data = {}
     
+    print('\n')
+    print(os.getcwd())
+    print('\n')
+
     # Fetch BAMnet configuration settings 
     with open(cfg, "r") as setting:
         data['opt']  = yaml.load(setting)
@@ -67,7 +70,7 @@ def load_model(data):
 
 # ---------------------------- Parse Query -----------------------------
 
-def get_kb_key(q):
+def get_kb_key(q, ):
     """
     Description: Get the knowledge base key from a query with a stock ticker
     Parameters: (String) Query as entered by the user
@@ -122,14 +125,14 @@ def parse_query(q, data):
     
 # ---------------------------- Answer Query -----------------------------
 
-def answer_question(q, qa_root='qa/'):
+def answer_question(q, cfg=None):
     """
     Description: Answer given question. Must load in model and data each time it is called.
     Parameters: (String) A question with a valid ticker
     Output: (String) The model's answer to the given question
     """
+    data = (load_data() if not cfg else load_data(cfg))
     
-    data = load_data(qa_root)
     model = load_model(data)
 
     inputs, possible_answers = parse_query(q, data)

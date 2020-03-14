@@ -1,6 +1,8 @@
+from sys import argv
+
 from qa.create_model import update_config, generate_embeddings, build_training_data, train_model
 from qa.question_answering import load_data, answer_question
-from sys import argv
+
 
 if __name__ == "__main__":
 
