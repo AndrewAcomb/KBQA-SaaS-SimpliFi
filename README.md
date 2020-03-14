@@ -20,12 +20,13 @@ Both SimpliFi and the KBQA SaaS use a Bidirectional Attentive Memory Network to 
 1. pip
 2. npm
 3. python3.6+
+4. wget (cli command)
 
-#### Options for training the model for use in Simplifi.
+#### Options for training the model for use in Simplifi
 
-1. Train the model through the KBQA SaaS React frontend.
+1. Train the model through the KBQA SaaS React frontend
 
-2. Download the pretrained model from Google Docs.
+2. Download the built data and pretrained model (see running SimpliFi Step 2)
 
 
 ## KBQA SaaS
@@ -34,17 +35,65 @@ Both SimpliFi and the KBQA SaaS use a Bidirectional Attentive Memory Network to 
 
 Input: A dataset in the specified format. One will be provided in the root directory called result_spy.json which contains data from stocks in the $SPY ETF.
 
-Ouput: A trained model that can be queried via the api endpoint. The same model will also be used for SimpliFi.
+Ouput: A trained model that can be queried via the api endpoint. The same model can also be used for SimpliFi.
 Ex: localhost:5000/answer?question=what_is_the_revenue_of_$appl_? 
 
 
 ### How to run (Docker)
 
-W2V download for training takes about 7 minutes.
+Docker Image: [View]()
 
-Build embeddings takes 6 minutes.
+Dockerfile: [View]()
 
-Training model takes about 13 minutes.
+
+#### Step 1. Clone and navigate to this repository
+
+```
+https://github.com/AndrewAcomb/KBQA-SaaS-SimpliFi.git
+cd KBQA-SaaS-SimpliFi
+```
+
+#### Step 2. Download Word2Vec embeddings
+
+```
+cd kbqa-saas-flask/question-answering && { wget --no-check-certificate -r 'https://drive.google.com/uc?id=1DVouJLo_K5cs4iVjNlkF5Ed9NlsP9G9G&export=download' -O glove.840B.300d.w2v.zip; unzip glove.840B.300d.w2v.zip; rm glove.840B.300d.w2v.zip ; cd -; }
+```
+
+The download should take about 4 - 6 minutes.
+
+#### Step 3. Install npm modules, and start react
+
+```
+cd kbqa-saas-react && { npm install ; npm start; }
+```
+
+In a new CLI window, navigate back to this repository.
+
+
+#### Step 3. Build and run the KBQA SaaS Docker image, then
+
+```
+docker build -t kbqa .
+docker run -d -p 5000:5000 kbqa
+```
+
+#### Step 4. Go to http://localhost:3000/, click 'Select File', select the starter data, and click 'Start Upload'
+
+Starter Data: KBQA-SaaS-SimpliFi/kbqa-saas-flask/data_upload/new_result_spy.json
+
+#### Step 5. Enjoy the vibes
+
+Reformatting the Word2Vec embeddings to the data takes about 7 minutes.
+
+Building the training data takes about 6 minutes.
+
+Training the model takes about 13 minutes.
+
+#### Step 6. Query the newly exposed API endpoint
+
+The model you just trained is now availible to be queried at the given address.
+Enter your question as a url in the following format: localhost:5000/answer?question=what_is_the_revenue_of_$appl_? 
+
 
 
 
@@ -55,17 +104,6 @@ Training model takes about 13 minutes.
 Input: A question (string) containing a valid stock ticker (E.g, $aapl or $tsla)
 
 Output: An answer (string) containing the requested detail about the company (revenue, industry, market cap, etc.)
-
-
-<!-- ### Model & Data
-
-You should put the model, embeddings, and data folder in kbqa-saas-flask/qa
-
-Model: http://andrewacomb.me/bamnet.md
-
-Pretrained W2V Embeddings: http://nlp.stanford.edu/data/wordvecs/glove.840B.300d.zip
-
-Preprocessed Data: http://andrewacomb.me/data.zip -->
 
 
 ### How to run (Docker)
@@ -80,19 +118,18 @@ Dockerfile: [View](https://github.com/AndrewAcomb/KBQA-SaaS-SimpliFi/blob/master
 https://github.com/AndrewAcomb/KBQA-SaaS-SimpliFi.git
 cd KBQA-SaaS-SimpliFi
 ```
-docker tag simplifi registry-host:5000/myadmin/simplifi
+
 #### Step 2. Download processed data and pretrained model
 
 ```
-cd ks-flask/question-answering && { curl -O http://andrewacomb.me/data.zip ; curl -O http://andrewacomb.me/bamnet.md ; unzip data.zip ; rm data.zip ; cd -; }
+cd kbqa-saas-flask/question-answering && { curl -O http://andrewacomb.me/data.zip ; curl -O http://andrewacomb.me/bamnet.md ; unzip data.zip ; rm data.zip ; cd -; }
 ```
-
 
 #### Step 3. Build and run the SimpliFi Docker image
 
 ```
 docker build -t simplifi .
-docker run simplifi
+docker run -d -p 5000:5000 simplifi
 ```
 
 #### Step 4. Open your browser and go to http://localhost:5000/
