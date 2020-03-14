@@ -1,16 +1,17 @@
 import numpy as np
 from flask import Flask, request, render_template
-import question_answering as qa
-from create_model import update_config
+import qa.question_answering as qans
+from qa.create_model import update_config
 
 # Default url is http://localhost:5000
 
-app = Flask(__name__, template_folder='.')
+app = Flask(__name__)
 
 # Load in data, model
 
-data = qa.load_data()
-model = qa.load_model(data)
+#update_config('/config/bamnet_webq.yml', '/data', './bamnet.md')
+data = qans.load_data()
+model = qans.load_model(data)
 
 
 @app.route('/')
@@ -32,7 +33,7 @@ def answer():
 
     query =  [str(x) for x in request.form.values()][0]
 
-    ans = qa.answer_question_quick(query, model, data)
+    ans = qans.answer_question_quick(query, model, data)
 
 
     Question = "Question: {}".format(query)
@@ -44,4 +45,4 @@ def answer():
 
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug = True, host='0.0.0.0')

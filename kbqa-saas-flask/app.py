@@ -9,8 +9,7 @@ import subprocess
 import os
 import sys  
 
-sys.path.append('/Users/andrewacomb/Desktop/School/Current_Classes/COMP_SCI_496/repo/kbqa-saas-flask/question-answering')  
-from question_answering import answer_question
+from qa.question_answering import answer_question
 
 app_id = "960906"
 key = "d18ed2e42cf337876806"

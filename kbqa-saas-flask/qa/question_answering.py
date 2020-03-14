@@ -2,21 +2,22 @@ import sys
 import os
 import string
 import yaml
-from core.bamnet.bamnet import BAMnetAgent
-from core.utils.utils import get_config, load_json, load_ndjson
-from core.build_data.build_data import build_vocab, build_data, build_seed_ent_data, build_ans_cands
-from core.build_data.utils import vectorize_data
+from qa.core.bamnet.bamnet import BAMnetAgent
+from qa.core.utils.utils import get_config, load_json, load_ndjson
+from qa.core.build_data.build_data import build_vocab, build_data, build_seed_ent_data, build_ans_cands
+from qa.core.build_data.utils import vectorize_data
 
 
 # --------- Load Knowledge Base, Existing Model, ID Mappings ------------
 
-def load_data(cfg = 'question-answering/config/bamnet_webq.yml'):
+def load_data(qa_root='qa/'):
     """
     Description: Load config settings, knowledge base, and ID mappings into memory
     Parameters: (String) Path to configuration file
     Output: (Dict) Dictionary containing token mappings
     """
 
+    cfg =qa_root + 'config/bamnet_webq.yml'
     data = {}
     
     # Fetch BAMnet configuration settings 
@@ -121,14 +122,14 @@ def parse_query(q, data):
     
 # ---------------------------- Answer Query -----------------------------
 
-def answer_question(q):
+def answer_question(q, qa_root='qa/'):
     """
     Description: Answer given question. Must load in model and data each time it is called.
     Parameters: (String) A question with a valid ticker
     Output: (String) The model's answer to the given question
     """
     
-    data = load_data()
+    data = load_data(qa_root)
     model = load_model(data)
 
     inputs, possible_answers = parse_query(q, data)
