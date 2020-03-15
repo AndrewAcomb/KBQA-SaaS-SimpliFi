@@ -70,7 +70,7 @@ def load_model(data):
 
 # ---------------------------- Parse Query -----------------------------
 
-def get_kb_key(q, ):
+def get_kb_key(q):
     """
     Description: Get the knowledge base key from a query with a stock ticker
     Parameters: (String) Query as entered by the user

@@ -18,10 +18,12 @@ Both SimpliFi and the KBQA SaaS use a Bidirectional Attentive Memory Network to 
 #### System requirements
 
 1. pip
-2. npm
-3. python3.6+
+2. python3.6+
+3. virtualenv
+3. npm
 4. wget (cli tool to download large files)
 5. docker
+
 
 #### Options for training the model for use in Simplifi
 
@@ -39,20 +41,10 @@ Both SimpliFi and the KBQA SaaS use a Bidirectional Attentive Memory Network to 
 Input: A dataset in the specified format. One will be provided in the root directory called result_spy.json which contains data from stocks in the $SPY ETF.
 
 Ouput: A trained model that can be queried via the api endpoint. The same model will also be used for SimpliFi.
-Ex: localhost:5000/answer?question=what_is_the_revenue_of_$appl_? 
+Ex: localhost:5000/answer?question=what_is_the_revenue_of_$aapl_? 
 
 
-### How to run (Docker)
-
-Docker Image: [View]()
-
-Dockerfile: [View]()
-
-If you run the two lines below, skip to Step 4
-```
-docker pull aca7964/simplifi:initialcommit
-docker run aca7964/simplifi:initialcommit
-```
+### How to run 
 
 #### Step 1. Clone and navigate to this repository
 
@@ -64,36 +56,41 @@ cd KBQA-SaaS-SimpliFi
 #### Step 2. Download Word2Vec embeddings
 
 ```
-cd kbqa-saas-flask/qa&& { wget --no-check-certificate -r 'https://drive.google.com/uc?id=1DVouJLo_K5cs4iVjNlkF5Ed9NlsP9G9G&export=download' -O glove.840B.300d.w2v.zip; unzip glove.840B.300d.w2v.zip; rm glove.840B.300d.w2v.zip ; cd -; }
+cd kbqa-saas-flask/qa&& { wget --no-check-certificate -r 'https://drive.google.com/uc?id=1DVouJLo_K5cs4iVjNlkF5Ed9NlsP9G9G&export=download' -O glove.840B.300d.w2v.zip; unzip glove.840B.300d.w2v.zip; rm glove.840B.300d.w2v.zip ; cd -;}
 ```
 
 The download should take about 4 - 6 minutes.
 
-#### Step 3. Build and run the KBQA SaaS Docker image, then
+#### Step 3. Create a virtual environment, install dependencies
 
 ```
-docker build -t kbqa .
-docker run -d -p 5000:5000 kbqa
+virtualenv venv&& { source venv/bin/activate ; pip install --no-cache-dir -r requirements.txt ; python3 -m nltk.downloader stopwords ;}
 ```
 
-#### Step 4. Install npm modules, and start react
+#### Step 4. Run the Flask server
+```
+cd kbqa-saas-flask
+python3 app.py
+```
+
+#### Step 5. Install npm modules, and start react
 
 In a new CLI window, navigate back to this repository.
 ```
 cd kbqa-saas-react && { npm install ; npm start; }
 ```
 
-#### Step 5. Go to http://localhost:3000/, click 'Select File', select the starter data, and click 'Start Upload'
+#### Step 6. Go to http://localhost:3000/, click 'Select File', select the starter data, and click 'Start Upload'
 
 Starter Data: result_spy.json in root directory.
 
-#### Step 6. Wait for model to train
+#### Step 7. Wait for model to train
 
 Reformatting the Word2Vec embeddings to the data takes about 10 minutes.
 
 Training the model takes about 15 minutes.
 
-#### Step 7. Query the newly exposed API endpoint
+#### Step 8. Query the newly exposed API endpoint
 
 The model you just trained is now availible to be queried at the given address.
 Enter your question as a url in the following format: localhost:5000/answer?question=what_is_the_revenue_of_$aapl_? 
@@ -132,7 +129,7 @@ cd KBQA-SaaS-SimpliFi
 #### Step 2. Download processed data and pretrained model
 
 ```
-cd kbqa-saas-flask/qa && { curl -O http://andrewacomb.me/data.zip ; curl -O http://andrewacomb.me/bamnet.md ; unzip data.zip ; rm data.zip ; cd -; }
+cd kbqa-saas-flask && { curl -O http://andrewacomb.me/data.zip ; unzip data.zip ; rm data.zip ; cd models ; curl -O http://andrewacomb.me/bamnet.md ; cd ..; cd ..}
 ```
 
 #### Step 3. Build and run the SimpliFi Docker image

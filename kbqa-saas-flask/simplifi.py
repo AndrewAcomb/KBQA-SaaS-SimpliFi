@@ -9,9 +9,6 @@ import qa.question_answering as qans
 
 app = Flask(__name__)
 
-# If docker, use 0.0.0.0
-host = ('0.0.0.0' if len(sys.argv) > 1 else '127.0.0.1')
-
 
 # Load in data, model
 
@@ -48,6 +45,8 @@ def answer():
 
     return render_template('index.html', question=Question, prediction=Answer, matching_score=Matching_Score)
 
+# If docker, use 0.0.0.0
+host = ('0.0.0.0' if len(sys.argv) > 1 else '127.0.0.1')
 
 if __name__ == "__main__":
     app.run(debug = True, host=host)
