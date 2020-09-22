@@ -1,5 +1,9 @@
 # KBQA Saas and SimpliFi #
 
+### Video Demo
+https://www.youtube.com/watch?v=O5vtwq2URxQ
+
+
 
 ### Problem Statement
 
@@ -131,6 +135,7 @@ cd KBQA-SaaS-SimpliFi
 ```
 cd kbqa-saas-flask && { curl -O http://andrewacomb.me/data.zip ; unzip data.zip ; rm data.zip ; cd models ; curl -O http://andrewacomb.me/bamnet.md ; cd ..; cd ..}
 ```
+NOTE (9/21/20)- I switched hosts for my website, and the pretrained model was lost in transition. You can train your own with the files in this repository if you're so inclined. If you aren't, I also added a demo video made shortly after the completion of this project so you can see it in action.
 
 #### Step 3. Build and run the SimpliFi Docker image
 
