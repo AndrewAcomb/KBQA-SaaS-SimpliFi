@@ -36,6 +36,7 @@ Both SimpliFi and the KBQA SaaS use a Bidirectional Attentive Memory Network to 
 2. Download the built data and pretrained model (see running SimpliFi Step 2)
 
 
+NOTE (9/21/20)- I switched hosts for my website, and the pretrained model was lost in transition. You can train your own with the files in this repository if you're so inclined. If you aren't, I also added a demo video made shortly after the completion of this project so you can see it in action.
 
 
 ## KBQA SaaS
@@ -100,8 +101,6 @@ The model you just trained is now availible to be queried at the given address.
 Enter your question as a url in the following format: localhost:5000/answer?question=what_is_the_revenue_of_$aapl_? 
 
 
-
-
 ## SimpliFi
 
 ### Input and Output
@@ -135,7 +134,6 @@ cd KBQA-SaaS-SimpliFi
 ```
 cd kbqa-saas-flask && { curl -O http://andrewacomb.me/data.zip ; unzip data.zip ; rm data.zip ; cd models ; curl -O http://andrewacomb.me/bamnet.md ; cd ..; cd ..}
 ```
-NOTE (9/21/20)- I switched hosts for my website, and the pretrained model was lost in transition. You can train your own with the files in this repository if you're so inclined. If you aren't, I also added a demo video made shortly after the completion of this project so you can see it in action.
 
 #### Step 3. Build and run the SimpliFi Docker image
 
