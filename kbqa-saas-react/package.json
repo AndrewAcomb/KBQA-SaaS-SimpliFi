@@ -10,7 +10,7 @@
     "pusher-js": "^5.1.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-scripts": "3.4.0",
+    "react-scripts": "5.0.1",
     "reqwest": "^2.0.5",
     "termynal-react": "^1.0.1"
   },
